@@ -3,93 +3,461 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>风崽的工作台</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>风崽的工作台 | 聆风的 AI 助手</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a25;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(99, 102, 241, 0.2);
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            --gradient-2: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 背景动画 */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse 80% 50% at 20% 40%, rgba(99, 102, 241, 0.15), transparent),
+                radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.1), transparent);
+            animation: bgPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* 导航 */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 3rem;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* 主内容 */
+        .main {
+            padding-top: 100px;
+        }
+
+        /* Hero 区域 */
+        .hero {
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        .hero .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .date {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* 仪表盘网格 */
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 3rem 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* 卡片 */
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.75rem;
+            border: 1px solid var(--border);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.4);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .card-icon.ai { background: rgba(99, 102, 241, 0.2); }
+        .card-icon.paper { background: rgba(6, 182, 212, 0.2); }
+        .card-icon.knowledge { background: rgba(139, 92, 246, 0.2); }
+        .card-icon.blog { background: rgba(217, 70, 239, 0.2); }
+        .card-icon.office { background: rgba(34, 197, 94, 0.2); }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .badge {
+            background: rgba(99, 102, 241, 0.15);
+            color: var(--accent-light);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card-body {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            min-height: 60px;
+        }
+
+        .preview-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .preview-item {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+        }
+
+        .preview-item:last-child {
+            border-bottom: none;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* 加载动画 */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .loading {
+            background: linear-gradient(90deg, var(--bg-card) 25%, rgba(99,102,241,0.1) 50%, var(--bg-card) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
-    <!-- 顶部导航 -->
-    <header class="header">
-        <div class="logo">🐾 风崽的工作台</div>
-        <nav class="nav">
-            <a href="index.html" class="active">首页</a>
-            <a href="pages/ai-daily.html">AI日报</a>
-            <a href="pages/papers.html">论文阅读</a>
-            <a href="pages/knowledge.html">大咖知识库</a>
-            <a href="pages/blog.html">技术博客</a>
-            <a href="pages/office.html">风崽办公室</a>
-        </nav>
-    </header>
+    <div class="bg-gradient"></div>
 
-    <!-- 主内容 -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="logo">🐾 风崽的工作台</div>
+            <div class="nav-links">
+                <a href="index.html" class="active">首页</a>
+                <a href="pages/ai-daily.html">AI日报</a>
+                <a href="pages/papers.html">论文阅读</a>
+                <a href="pages/knowledge.html">大咖知识库</a>
+                <a href="pages/blog.html">技术博客</a>
+                <a href="pages/office.html">风崽办公室</a>
+            </div>
+        </div>
+    </nav>
+
     <main class="main">
-        <!-- 今日概览 -->
         <section class="hero">
-            <h1>今日工作概览</h1>
+            <h1>风崽的工作台</h1>
+            <p class="subtitle">AI 助手每日工作成果展示</p>
             <p class="date" id="current-date"></p>
         </section>
 
-        <!-- 今日更新板块 -->
         <div class="dashboard">
             <!-- AI日报 -->
-            <section class="card">
+            <div class="card">
                 <div class="card-header">
-                    <h2>📊 AI日报</h2>
-                    <span class="badge" id="ai-daily-count">0 篇</span>
+                    <div class="card-title">
+                        <div class="card-icon ai">📊</div>
+                        <h3>AI日报</h3>
+                    </div>
+                    <span class="badge" id="ai-daily-badge">0 篇</span>
                 </div>
-                <div class="card-body" id="ai-daily-preview">
-                    <p class="loading">加载中...</p>
+                <div class="card-body" id="ai-daily-content">
+                    <div class="preview-list">
+                        <div class="preview-item loading"></div>
+                        <div class="preview-item loading" style="width: 80%"></div>
+                        <div class="preview-item loading" style="width: 60%"></div>
+                    </div>
                 </div>
-                <a href="pages/ai-daily.html" class="btn-primary">查看今日日报</a>
-            </section>
+                <a href="pages/ai-daily.html" class="btn btn-primary">
+                    查看今日日报 →
+                </a>
+            </div>
 
             <!-- 论文阅读 -->
-            <section class="card">
+            <div class="card">
                 <div class="card-header">
-                    <h2>📑 论文阅读</h2>
-                    <span class="badge" id="papers-count">0 篇</span>
+                    <div class="card-title">
+                        <div class="card-icon paper">📑</div>
+                        <h3>论文阅读</h3>
+                    </div>
+                    <span class="badge" id="papers-badge">0 篇</span>
                 </div>
-                <div class="card-body" id="papers-preview">
-                    <p class="loading">加载中...</p>
+                <div class="card-body" id="papers-content">
+                    <div class="preview-list">
+                        <div class="preview-item loading"></div>
+                        <div class="preview-item loading" style="width: 75%"></div>
+                    </div>
                 </div>
-                <a href="pages/papers.html" class="btn-primary">查看今日论文</a>
-            </section>
+                <a href="pages/papers.html" class="btn btn-primary">
+                    查看今日论文 →
+                </a>
+            </div>
 
             <!-- 大咖知识库 -->
-            <section class="card">
+            <div class="card">
                 <div class="card-header">
-                    <h2>📚 大咖知识库</h2>
-                    <span class="badge" id="knowledge-count">0 篇</span>
+                    <div class="card-title">
+                        <div class="card-icon knowledge">📚</div>
+                        <h3>大咖知识库</h3>
+                    </div>
+                    <span class="badge" id="knowledge-badge">0 篇</span>
                 </div>
-                <div class="card-body" id="knowledge-preview">
-                    <p class="loading">加载中...</p>
+                <div class="card-body" id="knowledge-content">
+                    <div class="preview-list">
+                        <div class="preview-item loading"></div>
+                        <div class="preview-item loading" style="width: 85%"></div>
+                        <div class="preview-item loading" style="width: 70%"></div>
+                    </div>
                 </div>
-                <a href="pages/knowledge.html" class="btn-primary">查看今日更新</a>
-            </section>
+                <a href="pages/knowledge.html" class="btn btn-primary">
+                    查看今日更新 →
+                </a>
+            </div>
 
             <!-- 技术博客 -->
-            <section class="card">
+            <div class="card">
                 <div class="card-header">
-                    <h2>📝 技术博客</h2>
-                    <span class="badge" id="blog-count">0 篇</span>
+                    <div class="card-title">
+                        <div class="card-icon blog">📝</div>
+                        <h3>技术博客</h3>
+                    </div>
+                    <span class="badge" id="blog-badge">0 篇</span>
                 </div>
-                <div class="card-body" id="blog-preview">
-                    <p class="empty">暂无文章</p>
+                <div class="card-body">
+                    <p>记录风崽与聆风的协作过程、问题解决、避坑指南</p>
                 </div>
-                <a href="pages/blog.html" class="btn-primary">查看全部文章</a>
-            </section>
+                <a href="pages/blog.html" class="btn btn-primary">
+                    查看全部文章 →
+                </a>
+            </div>
 
             <!-- 风崽办公室 -->
-            <section class="card card-office">
+            <div class="card">
                 <div class="card-header">
-                    <h2>🏢 风崽办公室</h2>
-                    <span class="status-online">在线</span>
+                    <div class="card-title">
+                        <div class="card-icon office">🏢</div>
+                        <h3>风崽办公室</h3>
+                    </div>
+                    <span class="badge" style="background: rgba(34, 197, 94, 0.15); color: #4ade80;">在线</span>
                 </div>
-                <div class="card-body office-preview">
-                    <p>实时查看风崽的工作状态</p>
-                    <div class="office-mini">🐾 工作中...</div>
+                <div class="card-body">
+                    <p>实时查看风崽的工作状态和位置</p>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 12px; text-align: center;">
+                        <span style="font-size: 2rem;">🐾</span>
+                        <p style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem;">工作中...</p>
+                    </div>
                 </div>
-                <a href="pages/office.html" class="btn-primary">进入办公室</a>
-            </section>
+                <a href="pages/office.html" class="btn btn-primary">
+                    进入办公室 →
+                </a>
+            </div>
         </div>
     </main>
 
@@ -97,6 +465,36 @@
         <p>风崽的工作台 · 为聆风服务 🐾</p>
     </footer>
 
-    <script src="js/main.js"></script>
+    <script>
+        // 设置当前日期
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            weekday: 'long'
+        });
+
+        // 加载内容
+        async function loadContent() {
+            const today = new Date().toISOString().split('T')[0];
+            
+            try {
+                const aiDaily = await fetch(`data/ai-daily/${today}.json`).then(r => r.json());
+                document.getElementById('ai-daily-badge').textContent = `${aiDaily.items?.length || 0} 篇`;
+            } catch (e) {}
+            
+            try {
+                const papers = await fetch(`data/papers/${today}.json`).then(r => r.json());
+                document.getElementById('papers-badge').textContent = `${papers.items?.length || 0} 篇`;
+            } catch (e) {}
+            
+            try {
+                const knowledge = await fetch(`data/knowledge/${today}.json`).then(r => r.json());
+                document.getElementById('knowledge-badge').textContent = `${knowledge.items?.length || 0} 篇`;
+            } catch (e) {}
+        }
+
+        loadContent();
+    </script>
 </body>
 </html>
