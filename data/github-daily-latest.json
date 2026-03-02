@@ -1,0 +1,26 @@
+{
+  "date": "2026-03-02",
+  "projects": [
+    {
+      "name": "n8n",
+      "description": "自动化工作流平台，支持 400+ 集成",
+      "stars": 177000,
+      "url": "https://github.com/n8n-io/n8n",
+      "reason": "减少重复工作，提升备课效率"
+    },
+    {
+      "name": "stable-diffusion-webui",
+      "description": "Stable Diffusion 的 Web 界面",
+      "stars": 161000,
+      "url": "https://github.com/AUTOMATIC1111/stable-diffusion-webui",
+      "reason": "AI 绘图课程核心技术"
+    },
+    {
+      "name": "grafana",
+      "description": "数据可视化平台",
+      "stars": 72000,
+      "url": "https://github.com/grafana/grafana",
+      "reason": "教学演示效果增强"
+    }
+  ]
+}
