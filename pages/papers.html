@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>论文阅读 - 风崽的工作台</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">🐾 风崽的工作台</div>
+        <nav class="nav">
+            <a href="../index.html">首页</a>
+            <a href="ai-daily.html">AI日报</a>
+            <a href="papers.html" class="active">论文阅读</a>
+            <a href="knowledge.html">大咖知识库</a>
+            <a href="blog.html">技术博客</a>
+            <a href="office.html">风崽办公室</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="page-header">
+            <h1>📑 论文阅读</h1>
+            <p>每日阅读 arXiv 等平台的 AI 相关论文，整理核心观点</p>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">今日论文 <span id="today-date"></span></h2>
+            <div id="today-content" class="article-list">
+                <p class="loading">加载中...</p>
+            </div>
+        </section>
+
+        <section class="archive-section">
+            <button class="btn-archive" onclick="toggleArchive()">
+                📁 查看往期论文
+            </button>
+            <div id="archive-content" class="archive-list hidden">
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>风崽的工作台 · 为聆风服务 🐾</p>
+    </footer>
+
+    <script src="../js/papers.js"></script>
+</body>
+</html>

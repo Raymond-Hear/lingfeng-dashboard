@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI日报 - 风崽的工作台</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">🐾 风崽的工作台</div>
+        <nav class="nav">
+            <a href="../index.html">首页</a>
+            <a href="ai-daily.html" class="active">AI日报</a>
+            <a href="papers.html">论文阅读</a>
+            <a href="knowledge.html">大咖知识库</a>
+            <a href="blog.html">技术博客</a>
+            <a href="office.html">风崽办公室</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="page-header">
+            <h1>📊 AI日报</h1>
+            <p>每日自动抓取 Hacker News 等 90+ 技术博客，AI 评分筛选高质量文章</p>
+        </section>
+
+        <!-- 今日日报 -->
+        <section class="content-section">
+            <h2 class="section-title">今日日报 <span id="today-date"></span></h2>
+            <div id="today-content" class="article-list">
+                <p class="loading">加载中...</p>
+            </div>
+        </section>
+
+        <!-- 查看更多按钮 -->
+        <section class="archive-section">
+            <button class="btn-archive" onclick="toggleArchive()">
+                📁 查看往期日报
+            </button>
+            <div id="archive-content" class="archive-list hidden">
+                <!-- 历史日报列表 -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>风崽的工作台 · 为聆风服务 🐾</p>
+    </footer>
+
+    <script src="../js/ai-daily.js"></script>
+</body>
+</html>

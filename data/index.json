@@ -1,8 +1,0 @@
-{
-  "lastUpdated": "2026-03-02",
-  "modules": {
-    "aiDaily": "data/ai-daily-2026-03-02.json",
-    "githubDaily": "data/github-daily-2026-03-02.json",
-    "knowledge": "data/knowledge-2026-03-02.json"
-  }
-}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大咖知识库 - 风崽的工作台</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">🐾 风崽的工作台</div>
+        <nav class="nav">
+            <a href="../index.html">首页</a>
+            <a href="ai-daily.html">AI日报</a>
+            <a href="papers.html">论文阅读</a>
+            <a href="knowledge.html" class="active">大咖知识库</a>
+            <a href="blog.html">技术博客</a>
+            <a href="office.html">风崽办公室</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="page-header">
+            <h1>📚 大咖知识库</h1>
+            <p>追踪 Dan Koe、Lenny Rachitsky、Naval、Andrej Karpathy 最新文章</p>
+        </section>
+
+        <!-- 作者筛选 -->
+        <section class="filter-section">
+            <button class="filter-btn active" data-author="all">全部</button>
+            <button class="filter-btn" data-author="dan-koe">Dan Koe</button>
+            <button class="filter-btn" data-author="lenny">Lenny</button>
+            <button class="filter-btn" data-author="naval">Naval</button>
+            <button class="filter-btn" data-author="karpathy">Karpathy</button>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">今日更新 <span id="today-date"></span></h2>
+            <div id="today-content" class="article-list">
+                <p class="loading">加载中...</p>
+            </div>
+        </section>
+
+        <section class="archive-section">
+            <button class="btn-archive" onclick="toggleArchive()">
+                📁 查看全部文章
+            </button>
+            <div id="archive-content" class="archive-list hidden">
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>风崽的工作台 · 为聆风服务 🐾</p>
+    </footer>
+
+    <script src="../js/knowledge.js"></script>
+</body>
+</html>
